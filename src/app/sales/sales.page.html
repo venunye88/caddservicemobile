@@ -1,0 +1,152 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Sales</ion-title>
+    <!-- <ion-buttons slot="end">
+      <ion-button slot="icon-only">
+        <ion-icon name="close-circle-outline"></ion-icon>
+        
+      </ion-button>
+    </ion-buttons> -->
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <form [formGroup]="form" (ngSubmit)="save(form.value)">
+    <ion-list>
+      <ion-item lines="none">
+        <ion-label>Type:</ion-label>
+        <ion-select placeholder="Select sale type" formControlName="saleType" interface="popover" (ionChange)="typeChanged(form.value.saleType)">
+          <ion-select-option [value]="type['value']" *ngFor="let type of saleTypes | async">{{type.label}}
+          </ion-select-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-item-divider class="item-divider" *ngIf="form.value.saleType ">
+        <ion-label>{{form.value.saleType}}</ion-label>
+      </ion-item-divider>
+
+      <div *ngIf="form.value.saleType=='Walkin'">
+        <ion-list>
+          <ion-item>
+            <ion-label>Name:</ion-label>
+            <ion-input type="text" class="ion-text-right" formControlName="name" required></ion-input>
+          </ion-item>
+          <ion-item lines="none">
+            <ion-label>Phone Number:</ion-label>
+            <ion-input type="text" class="ion-text-right" formControlName="phoneNumber" required></ion-input>
+          </ion-item>
+        </ion-list>
+
+        <ion-item-divider class="item-divider">
+          <ion-label>Services</ion-label>
+        </ion-item-divider>
+
+        <ion-list formArrayName="saleDetails">
+          <div *ngFor="let sale of saleDetails.controls; index as i; count as c; last as l">
+            <ion-item-sliding>
+              <ion-item class="ion-no-padding" [formGroupName]="i" class="mb-1">
+                <ion-label>Service:</ion-label>
+                <ion-select formControlName="service" interface="popover" (ionChange)="onServiceSelected(sale.value)">
+                  <ion-select-option [value]="service" *ngFor="let service of services | async">{{service.name}}
+                  </ion-select-option>
+                </ion-select>
+                <p class="ion-text-right ion-no-margin ion-margin-start">
+                  <ion-label color="medium">Cost: &cent; {{sale.value.cost | number}}</ion-label>
+                </p>
+              </ion-item>
+              <ion-item-options *ngIf="saleDetails.length>1">
+                <ion-item-option color="danger">
+                  <ion-icon name="trash-outline" slot="icon-only" (click)="removeSaleDetails(i)"></ion-icon>
+                </ion-item-option>
+              </ion-item-options>
+            </ion-item-sliding>
+          </div>
+          <ion-button class="ion-margin" size="small" fill="outline" (click)="addSaleDetails()"
+            [disabled]="disableAddMore">
+            <ion-icon name="add-outline" slot="start"></ion-icon> Add More
+          </ion-button>
+        </ion-list>
+
+        
+      <!-- checkount -->
+
+      <!-- <section *ngIf="form.value.total>0">
+        <ion-item-divider class="item-divider">
+          <ion-label>Checkout</ion-label>
+        </ion-item-divider>
+  
+        <ion-list class="checkout">
+          <ion-item>
+            <ion-label>Total:</ion-label>
+            <ion-text class="ion-text-right">{{form.value.total}}</ion-text>
+          </ion-item>
+          <ion-item >
+            <ion-label>Discount Amt:</ion-label>
+            <ion-input type="number" class="ion-text-right" formControlName="discount" (ngModelChange)="totalCost()"></ion-input>
+          </ion-item>
+          <ion-item >
+            <ion-label>Amount Due:</ion-label>
+            <ion-text class="ion-text-right">{{form.value.grandTotal}}</ion-text>
+          </ion-item>
+        </ion-list>
+      </section> -->
+    
+      <!-- end checkount -->
+
+      </div>
+
+      <div *ngIf="form.value.saleType=='Customer'">
+        <ion-item>
+          <ion-label>Customer:</ion-label>
+          <ionic-selectable item-content formControlName="customer" itemValueField="id" itemTextField="name" [items]="customers | async"
+       [canSearch]="true" [hasVirtualScroll]="true" [shouldStoreItemValue]="false" (onSearch)="searchCustomer($event)" class="ml-10">
+        <ng-template ionicSelectableItemTemplate let-customer="item">
+          {{customer.name}}&nbsp; - &nbsp;<span class="tel"> {{customer.phoneNumber}} </span>
+        </ng-template>
+      </ionic-selectable>
+        </ion-item>
+
+        <ion-item lines="none" *ngIf="form.value.customer">
+          <ion-label>Subscription:</ion-label>
+          <ion-select formControlName="customerSubscriptionId" interface="popover" (ionChange)="onSubscriptionSelected(form.value.customerSubscriptionId)">
+            <ion-select-option [value]="sub['id']" *ngFor="let sub of form.value.customer?.subscriptions">
+              {{sub.subscriptionName}}
+            </ion-select-option>
+          </ion-select>
+        </ion-item>
+
+      </div>
+
+    </ion-list>
+
+     <!-- checkount -->
+
+     <section *ngIf="form.value.total>0 && form.value.saleType=='Walkin'">
+      <ion-item-divider class="item-divider">
+        <ion-label>Checkout</ion-label>
+      </ion-item-divider>
+
+      <ion-list class="checkout">
+        <ion-item>
+          <ion-label>Total:</ion-label>
+          <ion-text class="ion-text-right">{{form.value.total}}</ion-text>
+        </ion-item>
+        <ion-item>
+          <ion-label>Discount Amt:</ion-label>
+          <ion-input type="number" class="ion-text-right" formControlName="discount" (ngModelChange)="totalCost()"></ion-input>
+        </ion-item>
+        <ion-item >
+          <ion-label>Amount Due:</ion-label>
+          <ion-text class="ion-text-right">{{form.value.grandTotal}}</ion-text>
+        </ion-item>
+      </ion-list>
+    </section>
+  
+    <!-- end checkount -->
+
+
+    <ion-button type="submit" class="ion-no-margin ion-margin-top" expand="block" fill="solid" shape="" color="success" *ngIf="form.value.grandTotal">
+      Save Transaction</ion-button>
+
+  </form>
+</ion-content>

@@ -1,0 +1,18 @@
+:root {
+    --ion-toolbar-background:transparent;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  ion-header.md,
+  ion-footer.md {
+    ion-toolbar.md {
+      --background: var(--ion-background-color, #fff);
+    }
+  }
+  
+  .invalid-feedback {
+    color: #b80909;
+  }

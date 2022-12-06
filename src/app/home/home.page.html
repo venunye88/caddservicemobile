@@ -1,0 +1,92 @@
+<ion-header class="ion-no-border" [translucent]=true>
+  <ion-toolbar>
+    <ion-title class="title">CADDS Mobile</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+
+  <div class="header">
+    <ion-avatar>
+      <ion-img src="assets/images/user-avatar.png"></ion-img>
+    </ion-avatar>
+    <p class="ion-text-center ion-no-margin">{{user?.name}}</p>
+
+    <ion-item lines="none" class="ion-text-center">
+      <div style="margin:auto">
+        <ion-button size="small" fill="outline" (click)="changePassword()">
+          <ion-icon slot="start" name="lock-closed-outline"></ion-icon> PWD
+        </ion-button>
+        <ion-button size="small" fill="solid" (click)="logout()">
+          <ion-icon slot="start" name="exit-outline"></ion-icon> Logout
+        </ion-button>
+      </div>
+    </ion-item>
+  </div>
+
+
+  <ng-container *ngIf="loading">
+    <div *ngFor="let i of [1,2,3]">
+      <div class="ion-margin-top ion-margin-bottom">
+        <ion-item lines="none">
+          <ion-thumbnail slot="start">
+            <ion-skeleton-text animated></ion-skeleton-text>
+          </ion-thumbnail>
+          <ion-label>
+            <h2>
+              <ion-skeleton-text animated></ion-skeleton-text>
+              <ion-skeleton-text animated></ion-skeleton-text>
+              <ion-skeleton-text animated></ion-skeleton-text>
+              <ion-skeleton-text animated></ion-skeleton-text>
+            </h2>
+          </ion-label>
+          
+        </ion-item>
+      </div>
+    </div>
+  </ng-container>
+
+  <div *ngIf="!loading">
+    <div class="stats ion-margin">
+      <div class="ion-margin-top ion-margin-bottom">
+        <ion-item lines="none">
+          <ion-thumbnail slot="start">
+            <img src="assets/images/tr.png" style="width:70px">
+          </ion-thumbnail>
+          <ion-label>
+            <h2>Services</h2>
+          </ion-label>
+          <ion-badge slot="end">12</ion-badge>
+        </ion-item>
+      </div>
+
+      <div class="ion-margin-top ion-margin-bottom">
+        <ion-item lines="none">
+          <ion-thumbnail slot="start">
+            <img src="assets/images/wlk.png">
+          </ion-thumbnail>
+          <ion-label>
+            <h2>Walkins</h2>
+          </ion-label>
+          <ion-badge slot="end">22</ion-badge>
+        </ion-item>
+      </div>
+
+      <div class="ion-margin-top ion-margin-bottom">
+        <ion-item lines="none">
+          <ion-thumbnail slot="start">
+            <img src="assets/images/cus.png">
+          </ion-thumbnail>
+          <ion-label>
+            <h2>Customers</h2>
+          </ion-label>
+          <ion-badge slot="end">10</ion-badge>
+        </ion-item>
+      </div>
+    </div>
+
+
+  </div>
+
+
+</ion-content>

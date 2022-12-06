@@ -1,0 +1,7 @@
+{
+  "name": "tyresales",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}

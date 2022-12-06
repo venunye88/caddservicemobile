@@ -1,0 +1,62 @@
+ion-avatar {
+  margin: auto;
+}
+
+.title {
+  color: #ffffff;
+  background: #ffffff;
+  text-shadow: 1px 1px 0 #4074b5, 1px -1px 0 #4074b5, -1px 1px 0 #4074b5,
+    -1px -1px 0 #4074b5, 1px 0px 0 #4074b5, 0px 1px 0 #4074b5,
+    -1px 0px 0 #4074b5, 0px -1px 0 #4074b5;
+  // color: #FFFFFF;
+  color: #f8f9f8;
+  background: transparent;
+}
+
+.stats{
+    margin-top: 5rem;
+    ion-item{
+        --padding-start:2.5px;
+        --background: #222428;
+    }
+}
+
+ion-item {
+  --border-radius: 6px;
+}
+
+// ion-item.tr {
+//   --background: #08abc8;
+// }
+
+ion-item.cd {
+    --background: beige;
+  }
+
+ion-item.ss {
+  --background: #ffe5e2;
+}
+
+ion-item.cs {
+  --background: #e1e9f0;
+}
+
+ion-item.wo {
+  --background: #d1e5e6;
+}
+
+ion-item.ht {
+  --background: #dbdbdb;
+}
+
+ion-item.lmcc {
+  --background: #faebd2;
+}
+
+ion-item.ltc {
+  --background: #e0fcdd;
+}
+
+ion-item.ppc {
+  --background: #d4f6ff;
+}

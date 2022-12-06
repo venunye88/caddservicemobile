@@ -1,0 +1,21 @@
+.item-divider{
+padding-left: 0.5rem;
+margin-top:1rem;
+}
+ion-item{
+    --padding-start: 0.5rem;
+}
+ion-list.checkout{
+    ion-item{
+        color:#808080;
+    }
+}
+
+.tel{
+    color: #4e4d4d;
+    // font-size: small;
+}
+// ion-select::part(text) {
+//     white-space: normal !important;
+//     transform: none !important;
+// }
